@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Loading Animation</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<style>
+.loading-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #1A4D13;
+}
+
+.loading {
+    width: 100px;
+    height: 100px;
+    border: 10px solid #ccc;
+    border-top-color: #333;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+h2 {
+    margin-top: 20px;
+    color: #333;
+    font-family: Arial, sans-serif;
+}
+
+#timer {
+    font-size: 24px;
+}
+
+</style>
+<body>
+    <div class="loading-container">
+        <div class="loading"></div>
+	<h2>Please wait... <span id="timer"></span></h2>
+	<h2>if any transaction is detected it will open the details and you be able to transfer it back to your account</h2>
+    </div>
+<!--    <div id="modal" class="modal">
+    <div class="modal-content">
+        <span id="modal-close" class="modal-close">&times;</span>
+        <h3>Click on OK button</h3>
+	<a href="{{ url_for('index')}}">
+        <button onclick="hideModal()">OK</button>
+	</a>
+    </div>
+</div> -->
+
+
+    <script src="static/script.js">
+	document.addEventListener('DOMContentLoaded', function() {
+  let remainingSeconds = 60000;
+
+  const timer = document.getElementById('timer');
+  updateTimer();
+
+  setInterval(function() {
+    remainingSeconds--;
+    updateTimer();
+  }, 10000);
+
+  function updateTimer() {
+    const minutes = Math.floor(remainingSeconds / 60);
+    const seconds = remainingSeconds % 60;
+
+    timer.innerText = `${padLeft(minutes)}:${padLeft(seconds)}`;
+  }
+
+  function padLeft(value) {
+    return String(value).padStart(2, '0');
+  }
+});
+
+    </script>
+        
+</body>
+</html>
+
